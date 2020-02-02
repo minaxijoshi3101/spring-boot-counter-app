@@ -29,7 +29,7 @@ public class CounterControllerIntegrationTest {
 
 
   @Test
-  public void testAddCounter() {
+  public void testAddCounterAndIncrementWithMultiThreads() {
     CounterDto counterDto = new CounterDto("counter", 0L);
     ResponseEntity<CounterDto> responseEntity = this.restTemplate
         .postForEntity("http://localhost:" + port + "/counters", counterDto, CounterDto.class);
@@ -38,7 +38,7 @@ public class CounterControllerIntegrationTest {
     ExecutorService executorService =
         Executors.newFixedThreadPool(4);
 
-    for (int j = 0; j < 5; j++) {
+    for (int j = 0; j < 20; j++) {
       executorService.execute(() -> {
         ResponseEntity<CounterDto> responseEntity2 = this.restTemplate
             .exchange("http://localhost:" + port + "/counters/counter/increment", HttpMethod.PUT, null,
@@ -49,20 +49,15 @@ public class CounterControllerIntegrationTest {
       });
     }
 
-//    CounterDto responseEntity3 = this.restTemplate
-//        .getForObject("http://localhost:" + port + "/counters/counter", CounterDto.class);
-//
-//    assertEquals(10, responseEntity3.getValue());
-
   }
 
   @Test
   public void getCounter() throws InterruptedException {
 
-    TimeUnit.SECONDS.sleep(10);
+    TimeUnit.SECONDS.sleep(5);
     CounterDto responseEntity3 = this.restTemplate
         .getForObject("http://localhost:" + port + "/counters/counter", CounterDto.class);
 
-    assertEquals(10, responseEntity3.getValue());
+    assertEquals(20, responseEntity3.getValue());
   }
 }

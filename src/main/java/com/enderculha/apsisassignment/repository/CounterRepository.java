@@ -12,6 +12,6 @@ public interface CounterRepository {
 
   List<CounterDto> findAll();
 
-  CounterDto incrementCounter();
+  CounterDto incrementCounter(String counterId);
 
 }

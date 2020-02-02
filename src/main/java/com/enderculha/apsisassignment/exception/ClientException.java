@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 @Data
 public class ClientException extends RuntimeException {
 
-  private HttpStatus httpStatus;
+  private final HttpStatus httpStatus;
 
-  private String message;
+  private final String message;
 
-  private String error;
+  private final String error;
 
   public ErrorDto getBody() {
     return new ErrorDto(httpStatus, message, error);
