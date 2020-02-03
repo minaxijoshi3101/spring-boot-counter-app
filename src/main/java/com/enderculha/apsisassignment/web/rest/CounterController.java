@@ -2,6 +2,10 @@ package com.enderculha.apsisassignment.web.rest;
 
 import com.enderculha.apsisassignment.dto.CounterDto;
 import com.enderculha.apsisassignment.service.CounterService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -28,6 +32,12 @@ public class CounterController {
   }
 
   @GetMapping("/counters/{counterId}")
+  @ApiOperation(value = "Get counter and its value")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Counter is retrieved successfully."),
+      @ApiResponse(code = 400, message = "Invalid input."),
+      @ApiResponse(code = 404, message = "Counter does not exist")
+  })
   public ResponseEntity<CounterDto> getCounter(@PathVariable("counterId") String counterId) {
 
     log.info("Get Counter Request is triggered for Counter Id:{}", counterId);
@@ -41,6 +51,11 @@ public class CounterController {
   }
 
   @GetMapping("/counters")
+  @ApiOperation(value = "Lists all counters and its values")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Counters are retrieved successfully."),
+      @ApiResponse(code = 400, message = "Invalid input.")
+  })
   public ResponseEntity<List<CounterDto>> listCounters() {
 
     log.info("List Counter Request is triggered");
@@ -49,6 +64,14 @@ public class CounterController {
   }
 
   @PostMapping("/counters")
+  @ApiOperation(value = "Creates a new Counter")
+  @ApiImplicitParam(name = "counterDto", value = "Counter object with Id and Initial Value", dataType = "CounterDto",
+      required = true)
+  @ApiResponses(value = {
+      @ApiResponse(code = 201, message = "Counter is created successfully."),
+      @ApiResponse(code = 400, message = "Invalid input."),
+      @ApiResponse(code = 403, message = "Forbidden since counter already exists")
+  })
   public ResponseEntity<CounterDto> createCounter(@RequestBody @Valid CounterDto counterDto) {
 
     log.info("Create Counter is triggered with values, {}", counterDto);
@@ -58,6 +81,11 @@ public class CounterController {
   }
 
   @PutMapping("/counters/{counterId}/increment")
+  @ApiOperation(value = "Increments the counter value by 1")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Counter is incremented successfully."),
+      @ApiResponse(code = 400, message = "Invalid input."),
+  })
   public ResponseEntity<CounterDto> incrementCounter(@PathVariable("counterId") String counterId) {
 
     log.info("Increment Counter is triggered for Counter Id:{}", counterId);
