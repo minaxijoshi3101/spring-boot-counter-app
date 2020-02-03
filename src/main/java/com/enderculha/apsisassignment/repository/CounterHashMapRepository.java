@@ -2,24 +2,20 @@ package com.enderculha.apsisassignment.repository;
 
 import com.enderculha.apsisassignment.dto.CounterDto;
 import com.enderculha.apsisassignment.exception.ClientException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
 
-@Repository
 @Data
 @Slf4j
 public class CounterHashMapRepository implements CounterRepository {
 
   private Map<String, CounterDto> counterMap;
 
-  @Autowired
   public CounterHashMapRepository(Map<String, CounterDto> counterMap) {
     this.counterMap = counterMap;
   }
@@ -53,11 +49,8 @@ public class CounterHashMapRepository implements CounterRepository {
 
   @Override
   public List<CounterDto> findAll() {
-    return counterMap
-        .entrySet()
-        .stream()
-        .map(Map.Entry::getValue)
-        .collect(Collectors.toList());
+    return new ArrayList<>(counterMap
+        .values());
   }
 
   @Override
