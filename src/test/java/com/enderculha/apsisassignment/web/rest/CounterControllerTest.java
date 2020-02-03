@@ -22,32 +22,34 @@ class CounterControllerTest {
 
   private final CounterController counterController = new CounterController(service);
 
+  private static final String COUNTER_ID = "test";
+  private static final Long COUNTER_VALUE_0 = 0L;
+  private static final Long COUNTER_VALUE_1 = 1L;
+
   @Test
   public void getCounterShouldReturn200OK() {
 
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto(counterId, 0L);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
 
-    when(service.getCounter(counterId)).thenReturn(Optional.of(counterDto));
+    when(service.getCounter(COUNTER_ID)).thenReturn(Optional.of(counterDto));
 
-    ResponseEntity<CounterDto> actual = counterController.getCounter(counterId);
+    ResponseEntity<CounterDto> actual = counterController.getCounter(COUNTER_ID);
 
     assertEquals(HttpStatus.OK, actual.getStatusCode());
     assertEquals(counterDto, actual.getBody());
-    verify(service, times(1)).getCounter(counterId);
+    verify(service, times(1)).getCounter(COUNTER_ID);
 
   }
 
   @Test
   public void getCounterShouldReturn404NotFound() {
 
-    String counterId = "test";
-    when(service.getCounter(counterId)).thenReturn(Optional.ofNullable(null));
+    when(service.getCounter(COUNTER_ID)).thenReturn(Optional.ofNullable(null));
 
-    ResponseEntity<CounterDto> actual = counterController.getCounter(counterId);
+    ResponseEntity<CounterDto> actual = counterController.getCounter(COUNTER_ID);
 
     assertEquals(HttpStatus.NOT_FOUND, actual.getStatusCode());
-    verify(service, times(1)).getCounter(counterId);
+    verify(service, times(1)).getCounter(COUNTER_ID);
 
   }
 
@@ -67,7 +69,7 @@ class CounterControllerTest {
   @Test
   public void createCounterShouldReturn201Created() {
 
-    CounterDto counterDto = new CounterDto("test", 0L);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
     when(service.createCounter(eq(counterDto))).thenReturn(counterDto);
 
     ResponseEntity<CounterDto> actual = counterController.createCounter(counterDto);
@@ -81,15 +83,14 @@ class CounterControllerTest {
   @Test
   public void incrementCounterShouldReturn200OK() {
 
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto("counterId", 1L);
-    when(service.incrementCounter(eq(counterId))).thenReturn(counterDto);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_1);
+    when(service.incrementCounter(eq(COUNTER_ID))).thenReturn(counterDto);
 
-    ResponseEntity<CounterDto> actual = counterController.incrementCounter(counterId);
+    ResponseEntity<CounterDto> actual = counterController.incrementCounter(COUNTER_ID);
 
     assertEquals(HttpStatus.OK, actual.getStatusCode());
     assertEquals(counterDto, actual.getBody());
-    verify(service, times(1)).incrementCounter(eq(counterId));
+    verify(service, times(1)).incrementCounter(eq(COUNTER_ID));
 
   }
 

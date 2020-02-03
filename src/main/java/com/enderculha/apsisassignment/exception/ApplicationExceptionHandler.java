@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,17 +40,31 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
       errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
     }
 
+    log.error("Method Argument not Valid Exception is handled with errors:{}", errors);
     ErrorDto errorDto =
         new ErrorDto(HttpStatus.BAD_REQUEST, "Input Validation Error", errors);
     return handleExceptionInternal(
         ex, errorDto, headers, errorDto.getStatus(), request);
   }
 
+
+  @Override
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
+      HttpStatus status, WebRequest request) {
+
+    log.error("HttpMessageNotReadable Exception is handled with message:{}", ex.getMessage());
+    ErrorDto errorDto =
+        new ErrorDto(status, ex.getMessage(), ex.getMostSpecificCause().getMessage());
+
+    return ResponseEntity.status(status)
+        .body(errorDto);
+  }
+
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorDto> handleDefaultException(Exception ex) {
     String uuid = UUID.randomUUID().toString();
-    log.error("Uncaught exception with ID[{}]", uuid, ex);
-    ErrorDto errorDto = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(),
+    log.error("Uncaught exception with ID[{}], message{}", uuid, ex.getMessage());
+    ErrorDto errorDto = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(),
         "Uncaught exception with ID[{" + uuid + "}]");
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(errorDto);

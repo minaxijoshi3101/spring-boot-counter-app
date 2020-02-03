@@ -7,15 +7,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Data
+@Slf4j
 public class CounterHashMapRepository implements CounterRepository {
 
-  private volatile Map<String, CounterDto> counterMap;
+  private Map<String, CounterDto> counterMap;
 
   @Autowired
   public CounterHashMapRepository(Map<String, CounterDto> counterMap) {
@@ -25,23 +27,28 @@ public class CounterHashMapRepository implements CounterRepository {
   @Override
   public CounterDto save(CounterDto counterDto) {
 
-    if (counterMap.containsKey(counterDto.getName())) {
+    if (counterMap.containsKey(counterDto.getId())) {
+      log.warn("Counter conflict, existing counter is requested to be overriden, with Counter Id:{}",
+          counterDto.getId());
       throw new ClientException(HttpStatus.FORBIDDEN,
           "Counter conflict",
-          "Counter:" + counterDto.getName() + " can not be created again"
+          "Counter:" + counterDto.getId() + " can not be created again"
       );
     }
 
-    counterMap.put(counterDto.getName(), counterDto);
-    return counterMap.get(counterDto.getName());
+    counterMap.put(counterDto.getId(), counterDto);
+    return counterMap.get(counterDto.getId());
   }
 
   @Override
   public Optional<CounterDto> findByCounterId(String counterId) {
+
     if (counterMap.containsKey(counterId)) {
       return Optional.of(counterMap.get(counterId));
     }
+    log.warn("Non existing counter with Id:{} is requested to be fetched", counterId);
     return Optional.empty();
+
   }
 
   @Override
@@ -55,11 +62,20 @@ public class CounterHashMapRepository implements CounterRepository {
 
   @Override
   public synchronized CounterDto incrementCounter(String counterId) {
+
     if (!counterMap.containsKey(counterId)) {
+      log.warn("Non existing counter with Id:{} is requested to be incremented",
+          counterId);
       throw new ClientException(HttpStatus.NOT_FOUND, "Counter needs to be created first",
           "Counter with Id:" + counterId + " does not exist");
     }
-    CounterDto newCounter = new CounterDto(counterId, counterMap.get(counterId).getValue() + 1);
+
+    Long currentValue = counterMap.get(counterId).getValue();
+    if (currentValue == Long.MAX_VALUE) {
+      log.warn("Counter with Id:{} is overflowed", counterId);
+    }
+
+    CounterDto newCounter = new CounterDto(counterId, currentValue + 1);
     counterMap.put(counterId, newCounter);
     return newCounter;
   }

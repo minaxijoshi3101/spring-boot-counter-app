@@ -29,29 +29,41 @@ public class CounterController {
 
   @GetMapping("/counters/{counterId}")
   public ResponseEntity<CounterDto> getCounter(@PathVariable("counterId") String counterId) {
+
+    log.info("Get Counter Request is triggered for Counter Id:{}", counterId);
     Optional<CounterDto> counterOptional = service.getCounter(counterId);
     if (counterOptional.isPresent()) {
       return ResponseEntity.ok(counterOptional.get());
     }
 
+    log.info("No Counter found for Counter Id:{}", counterId);
     return ResponseEntity.notFound().build();
   }
 
   @GetMapping("/counters")
   public ResponseEntity<List<CounterDto>> listCounters() {
+
+    log.info("List Counter Request is triggered");
     return ResponseEntity.ok(service.getCounterList());
+
   }
 
   @PostMapping("/counters")
   public ResponseEntity<CounterDto> createCounter(@RequestBody @Valid CounterDto counterDto) {
+
+    log.info("Create Counter is triggered with values, {}", counterDto);
     CounterDto createdCounter = service.createCounter(counterDto);
     return new ResponseEntity<>(createdCounter, HttpStatus.CREATED);
+
   }
 
   @PutMapping("/counters/{counterId}/increment")
   public ResponseEntity<CounterDto> incrementCounter(@PathVariable("counterId") String counterId) {
+
+    log.info("Increment Counter is triggered for Counter Id:{}", counterId);
     CounterDto createdCounter = service.incrementCounter(counterId);
     return new ResponseEntity<>(createdCounter, HttpStatus.OK);
+
   }
 
 }

@@ -24,64 +24,63 @@ class CounterHashMapRepositoryTest {
   private final ConcurrentHashMap map = mock(ConcurrentHashMap.class);
   private final CounterHashMapRepository counterHashMapRepository = new CounterHashMapRepository(map);
 
+  private static final String COUNTER_ID = "test";
+  private static final Long COUNTER_VALUE_0 = 0L;
+  private static final Long COUNTER_VALUE_1 = 1L;
+
   @Test
   public void saveShouldThrowClientExceptionWhenThereExistEntryWithTheSameKey() {
 
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto(counterId, 0L);
-    when(map.containsKey(eq(counterId))).thenReturn(true);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
+    when(map.containsKey(eq(COUNTER_ID))).thenReturn(true);
 
-    Exception exception = assertThrows(ClientException.class, () -> {
-      counterHashMapRepository.save(counterDto);
-    });
+    Exception exception = assertThrows(ClientException.class, () ->
+        counterHashMapRepository.save(counterDto));
 
     String expectedMessage = "Counter conflict";
     String actualMessage = exception.getMessage();
     assertTrue(actualMessage.contains(expectedMessage));
-    verify(map, times(1)).containsKey(eq(counterId));
+    verify(map, times(1)).containsKey(eq(COUNTER_ID));
 
   }
 
   @Test
   public void saveShouldPutToHashMap() {
 
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto(counterId, 0L);
-    when(map.containsKey(eq(counterId))).thenReturn(false);
-    when(map.get(eq(counterId))).thenReturn(counterDto);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
+    when(map.containsKey(eq(COUNTER_ID))).thenReturn(false);
+    when(map.get(eq(COUNTER_ID))).thenReturn(counterDto);
 
     CounterDto actual = counterHashMapRepository.save(counterDto);
 
     assertEquals(counterDto, actual);
-    verify(map, times(1)).containsKey(eq(counterId));
-    verify(map, times(1)).get(eq(counterId));
+    verify(map, times(1)).containsKey(eq(COUNTER_ID));
+    verify(map, times(1)).get(eq(COUNTER_ID));
 
   }
 
   @Test
   public void findByIdShouldGetValueFromMap() {
 
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto(counterId, 0L);
-    when(map.containsKey(eq(counterId))).thenReturn(true);
-    when(map.get(eq(counterId))).thenReturn(counterDto);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
+    when(map.containsKey(eq(COUNTER_ID))).thenReturn(true);
+    when(map.get(eq(COUNTER_ID))).thenReturn(counterDto);
 
-    Optional<CounterDto> actual = counterHashMapRepository.findByCounterId(counterId);
+    Optional<CounterDto> actual = counterHashMapRepository.findByCounterId(COUNTER_ID);
 
     assertEquals(Optional.of(counterDto), actual);
-    verify(map, times(1)).containsKey(eq(counterId));
+    verify(map, times(1)).containsKey(eq(COUNTER_ID));
 
   }
 
   @Test
   public void findAll() {
 
-    String counterId1 = "test";
-    CounterDto counterDto = new CounterDto(counterId1, 0L);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
     String counterId2 = "test2";
-    CounterDto counterDto2 = new CounterDto(counterId2, 0L);
+    CounterDto counterDto2 = new CounterDto(counterId2, COUNTER_VALUE_0);
     Map hashMap = new HashMap<>();
-    hashMap.put(counterId1, counterDto);
+    hashMap.put(COUNTER_ID, counterDto);
     hashMap.put(counterId2, counterDto2);
     when(map.entrySet()).thenReturn(hashMap.entrySet());
 
@@ -95,31 +94,30 @@ class CounterHashMapRepositoryTest {
   @Test
   public void incrementCounterShouldThrowExceptionWhenCounterIsNotFoundInMap() {
 
-    String counterId = "test";
-    when(map.containsKey(eq(counterId))).thenReturn(false);
+    when(map.containsKey(eq(COUNTER_ID))).thenReturn(false);
 
-    Exception exception = assertThrows(ClientException.class, () -> {
-      counterHashMapRepository.incrementCounter(counterId);
-    });
+    Exception exception = assertThrows(ClientException.class, () ->
+        counterHashMapRepository.incrementCounter(COUNTER_ID)
+    );
 
     String expectedMessage = "Counter needs to be created first";
     String actualMessage = exception.getMessage();
     assertTrue(actualMessage.contains(expectedMessage));
-    verify(map, times(1)).containsKey(eq(counterId));
+    verify(map, times(1)).containsKey(eq(COUNTER_ID));
 
   }
 
   @Test
   public void incrementCounterShouldIncrementValueInMap() {
-    String counterId = "test";
-    CounterDto counterDto = new CounterDto(counterId, 0L);
-    CounterDto incrementedCounterDto = new CounterDto(counterId, 1L);
-    when(map.containsKey(eq(counterId))).thenReturn(true);
-    when(map.get(eq(counterId))).thenReturn(counterDto);
 
-    CounterDto actual = counterHashMapRepository.incrementCounter(counterId);
+    CounterDto counterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_0);
+    CounterDto incrementedCounterDto = new CounterDto(COUNTER_ID, COUNTER_VALUE_1);
+    when(map.containsKey(eq(COUNTER_ID))).thenReturn(true);
+    when(map.get(eq(COUNTER_ID))).thenReturn(counterDto);
+
+    CounterDto actual = counterHashMapRepository.incrementCounter(COUNTER_ID);
     assertEquals(incrementedCounterDto, actual);
-    verify(map, times(1)).put(eq(counterId), eq(incrementedCounterDto));
+    verify(map, times(1)).put(eq(COUNTER_ID), eq(incrementedCounterDto));
 
   }
 
