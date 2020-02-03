@@ -2,10 +2,10 @@
 
 You will find the coding assignment in the ASSIGNMENT.md file.
 
-##DESCRIPTION
+## DESCRIPTION
 Basic Counter API that has 4 endpoints to implement functionalities in the Assignment.
 
-##USAGE
+## USAGE
 * [Base URL](https://counter-apsis.herokuapp.com/)
 * [Swagger Documentation](https://counter-apsis.herokuapp.com/swagger-ui.html#/)
 ### ENDPOINTS
