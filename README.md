@@ -55,7 +55,10 @@ Database also should be scaled. No-SQL Databases are easy to scale horizantally.
 * **Authentication**. 
 *How to ensure that only authorised users can submit and retrieve data?*<br/><br/>
 An authentication and authorization mechanism is used. Basic authentication or cookie-based session mechanism can be used basically. But, in a distributed systems Oauth and JWT can be used.
-
+<br/><br/>
+* **Coding**.<br/><br/>
+ Model and DTO Objects should be separated and Mapper can be used to convert objects. Some codes in Repository layer can be moved to service layer so as to make repository layer more generic. 
+ There are other improvements in the code as marked as TODO
 
 
 
