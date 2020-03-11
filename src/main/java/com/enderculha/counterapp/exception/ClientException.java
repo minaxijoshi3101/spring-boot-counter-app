@@ -1,6 +1,6 @@
-package com.enderculha.apsisassignment.exception;
+package com.enderculha.counterapp.exception;
 
-import com.enderculha.apsisassignment.dto.ErrorDto;
+import com.enderculha.counterapp.dto.ErrorDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;

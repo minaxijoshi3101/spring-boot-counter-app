@@ -1,6 +1,6 @@
-package com.enderculha.apsisassignment.exception;
+package com.enderculha.counterapp.exception;
 
-import com.enderculha.apsisassignment.dto.ErrorDto;
+import com.enderculha.counterapp.dto.ErrorDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package com.enderculha.apsisassignment;
+package com.enderculha.counterapp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
+import com.enderculha.counterapp.dto.CounterDto;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +16,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-@SpringBootTest(classes = ApsisAssignmentApplication.class,
+@SpringBootTest(classes = CounterApplication.class,
     webEnvironment = WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class CounterControllerIntegrationTest {

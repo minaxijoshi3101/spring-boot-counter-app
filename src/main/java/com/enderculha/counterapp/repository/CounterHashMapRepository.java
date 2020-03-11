@@ -1,7 +1,7 @@
-package com.enderculha.apsisassignment.repository;
+package com.enderculha.counterapp.repository;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
-import com.enderculha.apsisassignment.exception.ClientException;
+import com.enderculha.counterapp.dto.CounterDto;
+import com.enderculha.counterapp.exception.ClientException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,10 +1,10 @@
-package com.enderculha.apsisassignment.exception;
+package com.enderculha.counterapp.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.enderculha.apsisassignment.dto.ErrorDto;
+import com.enderculha.counterapp.dto.ErrorDto;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;

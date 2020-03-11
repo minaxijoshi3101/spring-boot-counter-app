@@ -9,9 +9,9 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.enderculha</groupId>
-  <artifactId>apsis-assignment</artifactId>
+  <artifactId>counter-app</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>apsis-assignment</name>
+  <name>counter-app</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>
@@ -77,7 +77,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.enderculha.apsisassignment.ApsisAssignmentApplication</mainClass>
+              <mainClass>com.enderculha.counterapp.CounterApplication</mainClass>
             </manifest>
           </archive>
         </configuration>

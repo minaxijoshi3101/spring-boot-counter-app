@@ -1,29 +1,19 @@
-# APSIS developer coding assigment
+# Spring Boot Basic Counter Application
 
-You will find the coding assignment in the ASSIGNMENT.md file.
+A simple backend application that satisfies the below specifications.
 
-## DESCRIPTION
-Basic Counter API that has 4 endpoints to implement functionalities in the Assignment.
+## Specifications
+Exposing methods below;
 
-## USAGE
-* [Base URL](https://counter-apsis.herokuapp.com/)
-* [Swagger Documentation](https://counter-apsis.herokuapp.com/swagger-ui.html#/)
-### ENDPOINTS
-#### Create a Counter 
-* POST https://counter-apsis.herokuapp.com/counters to create a counter, in post body counter object is required {"id":"String", "value": "Long"  }
-* Example curl -X POST "https://counter-apsis.herokuapp.com/counters" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"id\": \"counter1\", \"value\": 0}"
+* one to create new counters
+* one to increment a named counter by 1
+* one to get the current value of a given counter
+* one to get a list of all counters and their current value
 
-#### List All Counters
-* GET https://counter-apsis.herokuapp.com/counters
-* Example curl -X GET "https://counter-apsis.herokuapp.com/counters" -H "accept: */*"
 
-#### Get a Specific Counter
-* https://counter-apsis.herokuapp.com/counters/{counterId}
-* Example curl -X GET "https://counter-apsis.herokuapp.com/counters/counter1" -H "accept: */*"
-
-#### Increment a counter
-* https://counter-apsis.herokuapp.com/counters{counterId}/increment
-* curl -X PUT "https://counter-apsis.herokuapp.com/counters/counter1/increment" -H "accept: */*"
+## NOTES
+* It looses state on app shutdown (No persistent storage layer).
+* Java 11 is used as version.
 
 
 

@@ -1,4 +1,4 @@
-package com.enderculha.apsisassignment.web.rest;
+package com.enderculha.counterapp.web.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
@@ -7,8 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
-import com.enderculha.apsisassignment.service.CounterService;
+import com.enderculha.counterapp.dto.CounterDto;
+import com.enderculha.counterapp.service.CounterService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

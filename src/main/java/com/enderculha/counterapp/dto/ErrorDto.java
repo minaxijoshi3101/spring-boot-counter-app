@@ -1,4 +1,4 @@
-package com.enderculha.apsisassignment.dto;
+package com.enderculha.counterapp.dto;
 
 import java.util.Arrays;
 import java.util.List;

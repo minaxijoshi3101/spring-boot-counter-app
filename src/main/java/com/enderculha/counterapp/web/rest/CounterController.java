@@ -1,7 +1,7 @@
-package com.enderculha.apsisassignment.web.rest;
+package com.enderculha.counterapp.web.rest;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
-import com.enderculha.apsisassignment.service.CounterService;
+import com.enderculha.counterapp.dto.CounterDto;
+import com.enderculha.counterapp.service.CounterService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

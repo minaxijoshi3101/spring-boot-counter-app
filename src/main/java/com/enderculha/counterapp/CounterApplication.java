@@ -1,13 +1,13 @@
-package com.enderculha.apsisassignment;
+package com.enderculha.counterapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApsisAssignmentApplication {
+public class CounterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApsisAssignmentApplication.class, args);
+		SpringApplication.run(CounterApplication.class, args);
 	}
 
 }

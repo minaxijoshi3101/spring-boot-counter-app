@@ -1,4 +1,4 @@
-package com.enderculha.apsisassignment.repository;
+package com.enderculha.counterapp.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
-import com.enderculha.apsisassignment.exception.ClientException;
+import com.enderculha.counterapp.dto.CounterDto;
+import com.enderculha.counterapp.exception.ClientException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

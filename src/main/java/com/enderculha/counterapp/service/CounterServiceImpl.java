@@ -1,7 +1,7 @@
-package com.enderculha.apsisassignment.service;
+package com.enderculha.counterapp.service;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
-import com.enderculha.apsisassignment.repository.CounterRepository;
+import com.enderculha.counterapp.dto.CounterDto;
+import com.enderculha.counterapp.repository.CounterRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

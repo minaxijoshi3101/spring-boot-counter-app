@@ -1,7 +1,7 @@
-package com.enderculha.apsisassignment.configuration;
+package com.enderculha.counterapp.configuration;
 
-import com.enderculha.apsisassignment.repository.CounterHashMapRepository;
-import com.enderculha.apsisassignment.repository.CounterRepository;
+import com.enderculha.counterapp.repository.CounterHashMapRepository;
+import com.enderculha.counterapp.repository.CounterRepository;
 import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +28,10 @@ public class ServiceConfiguration {
     return new Docket(DocumentationType.SWAGGER_2)
         .useDefaultResponseMessages(false)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.enderculha.apsisassignment"))
+        .apis(RequestHandlerSelectors.basePackage("com.enderculha.counter-app"))
         .paths(PathSelectors.any())
         .build().apiInfo(new ApiInfo("Basic Counter API", "Documentation automatically generated", "1.0", null,
-            new Contact("Ender", "https://github.com/ApsisRecruitment/solution-enderculha", "enderculha@gmail.com"),
+            new Contact("Ender", "https://github.com/enderculha/spring-boot-counter-app", "enderculha@gmail.com"),
             null, null, Collections.emptyList()));
   }
 

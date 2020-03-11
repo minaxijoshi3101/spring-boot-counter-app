@@ -1,6 +1,6 @@
-package com.enderculha.apsisassignment.service;
+package com.enderculha.counterapp.service;
 
-import com.enderculha.apsisassignment.dto.CounterDto;
+import com.enderculha.counterapp.dto.CounterDto;
 import java.util.List;
 import java.util.Optional;
 

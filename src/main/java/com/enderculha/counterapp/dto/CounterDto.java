@@ -1,4 +1,4 @@
-package com.enderculha.apsisassignment.dto;
+package com.enderculha.counterapp.dto;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
