@@ -82,12 +82,12 @@ class CounterHashMapRepositoryTest {
     Map hashMap = new HashMap<>();
     hashMap.put(COUNTER_ID, counterDto);
     hashMap.put(counterId2, counterDto2);
-    when(map.entrySet()).thenReturn(hashMap.entrySet());
+    when(map.values()).thenReturn(hashMap.values());
 
     List<CounterDto> actual = counterHashMapRepository.findAll();
 
     assertEquals(Arrays.asList(counterDto2, counterDto), actual);
-    verify(map, times(1)).entrySet();
+    verify(map, times(1)).values();
 
   }
 

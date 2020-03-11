@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface CounterRepository {
 
+  //TODO: Add throws Exception
   CounterDto save(CounterDto counterDto);
 
   Optional<CounterDto> findByCounterId(String counterId);

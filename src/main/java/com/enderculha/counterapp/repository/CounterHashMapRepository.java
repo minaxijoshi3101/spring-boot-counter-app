@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 @Slf4j
 public class CounterHashMapRepository implements CounterRepository {
 
+  //TODO: Some parts here should be moved to Service Layer
+  //TODO: Use Model Object instead of CounterDto in Repository Layer
+
   private Map<String, CounterDto> counterMap;
 
   public CounterHashMapRepository(Map<String, CounterDto> counterMap) {
@@ -21,7 +24,7 @@ public class CounterHashMapRepository implements CounterRepository {
   }
 
   @Override
-  public CounterDto save(CounterDto counterDto) {
+  public synchronized CounterDto save(CounterDto counterDto) {
 
     if (counterMap.containsKey(counterDto.getId())) {
       log.warn("Counter conflict, existing counter is requested to be overriden, with Counter Id:{}",
@@ -29,7 +32,7 @@ public class CounterHashMapRepository implements CounterRepository {
       throw new ClientException(HttpStatus.FORBIDDEN,
           "Counter conflict",
           "Counter:" + counterDto.getId() + " can not be created again"
-      );
+      ); //TODO: Remove ClientException from Repository Layer
     }
 
     counterMap.put(counterDto.getId(), counterDto);
@@ -37,7 +40,7 @@ public class CounterHashMapRepository implements CounterRepository {
   }
 
   @Override
-  public Optional<CounterDto> findByCounterId(String counterId) {
+  public synchronized Optional<CounterDto> findByCounterId(String counterId) {
 
     if (counterMap.containsKey(counterId)) {
       return Optional.of(counterMap.get(counterId));
@@ -50,10 +53,11 @@ public class CounterHashMapRepository implements CounterRepository {
   @Override
   public List<CounterDto> findAll() {
     return new ArrayList<>(counterMap
-        .values());
+        .values()); //TODO: Change method return from List to Collection so as to get rid of extra conversion
   }
 
   @Override
+  //TODO: To increase performance, remove synchronized from method and use concurrent hashmap atomic update https://dzone.com/articles/java-8-concurrenthashmap-atomic-updates
   public synchronized CounterDto incrementCounter(String counterId) {
 
     if (!counterMap.containsKey(counterId)) {
