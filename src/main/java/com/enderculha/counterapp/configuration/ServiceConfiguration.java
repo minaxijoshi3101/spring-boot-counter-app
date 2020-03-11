@@ -28,7 +28,7 @@ public class ServiceConfiguration {
     return new Docket(DocumentationType.SWAGGER_2)
         .useDefaultResponseMessages(false)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.enderculha.counter-app"))
+        .apis(RequestHandlerSelectors.basePackage("com.enderculha.counterapp"))
         .paths(PathSelectors.any())
         .build().apiInfo(new ApiInfo("Basic Counter API", "Documentation automatically generated", "1.0", null,
             new Contact("Ender", "https://github.com/enderculha/spring-boot-counter-app", "enderculha@gmail.com"),
